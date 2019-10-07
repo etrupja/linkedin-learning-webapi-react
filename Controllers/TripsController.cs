@@ -7,21 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace Angular.Controllers
 {
     [Route("api/[controller]")]
-    public class NotesController : Controller
+    public class TripsController : Controller
     {
-        private INoteService _service;
-        public NotesController(INoteService service)
+        private ITripService _service;
+        public TripsController(ITripService service)
         {
             _service = service;
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetNotes()
+        public IActionResult GetTrips()
         {
             try
             {
-                var allNotes = _service.GetAllNotes();
-                return Ok(allNotes);
+                var allTrips = _service.GetAllTrips();
+                return Ok(allTrips);
             }
             catch (Exception ex)
             {
@@ -29,13 +29,13 @@ namespace Angular.Controllers
             }
         }
 
-        [HttpGet("SingleNote/{id}")]
-        public IActionResult GetNoteById(int id)
+        [HttpGet("SingleTrip/{id}")]
+        public IActionResult GetTripById(int id)
         {
             try
             {
-                var note = _service.GetNoteById(id); ;
-                return Ok(note);
+                var trip = _service.GetTripById(id); ;
+                return Ok(trip);
             }
             catch (Exception ex)
             {
@@ -43,13 +43,13 @@ namespace Angular.Controllers
             }
         }
 
-        [HttpPut("UpdateNote/{id}")]
-        public IActionResult UpdateNote(int id, [FromBody]Note note)
+        [HttpPut("UpdateTrip/{id}")]
+        public IActionResult UpdateTrip(int id, [FromBody]Trip trip)
         {
             try
             {
-                _service.UpdateNote(id, note);
-                return Ok(note);
+                _service.UpdateTrip(id, trip);
+                return Ok(trip);
             }
             catch (Exception ex)
             {
@@ -58,17 +58,17 @@ namespace Angular.Controllers
         }
 
 
-        [HttpPost("AddNote")]
-        public IActionResult AddNote([FromBody]Note note)
+        [HttpPost("AddTrip")]
+        public IActionResult AddTrip([FromBody]Trip trip)
         {
             try
             {
-                if (note != null)
+                if (trip != null)
                 {
-                    _service.AddNote(note);
-                    return Ok(note);
+                    _service.AddTrip(trip);
+                    return Ok(trip);
                 }
-                return BadRequest("Note was not added!");
+                return BadRequest("Trip was not added!");
             }
             catch (Exception ex)
             {
@@ -77,12 +77,12 @@ namespace Angular.Controllers
         }
 
 
-        [HttpDelete("DeleteNote/{id}")]
-        public IActionResult DeleteNote(int id)
+        [HttpDelete("DeleteTrip/{id}")]
+        public IActionResult DeleteTrip(int id)
         {
             try
             {
-                _service.DeleteNote(id);
+                _service.DeleteTrip(id);
                 return Ok();
             }
             catch (Exception ex)

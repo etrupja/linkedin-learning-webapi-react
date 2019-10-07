@@ -1,68 +1,68 @@
 import React, { Component } from "react";
 
-export class Notes extends Component {
-  static displayName = Notes.name;
+export class Trips extends Component {
+  static displayName = Trips.name;
 
   constructor(props) {
     super(props);
-    this.onNoteUpdate = this.onNoteUpdate.bind(this);
-    this.onNoteDelete = this.onNoteDelete.bind(this);
+    this.onTripUpdate = this.onTripUpdate.bind(this);
+    this.onTripDelete = this.onTripDelete.bind(this);
 
     this.state = {
-      notes: [],
+      trips: [],
       loading: true
     };
   }
 
   componentDidMount() {
-    this.populateNotesData();
+    this.populateTripsData();
   }
 
-  onNoteUpdate(id) {
+  onTripUpdate(id) {
     console.log("Update: ", id);
     const { history } = this.props;
     history.push("/update/" + id);
   }
 
-  onNoteDelete(id) {
+  onTripDelete(id) {
     console.log("Delete: ", id);
 
     const { history } = this.props;
     history.push("/delete/" + id);
   }
 
-  renderAllNotesTable(notes) {
+  renderAllTripsTable(trips) {
     return (
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Title</th>
+            <th>Name</th>
             <th>Description</th>
-            <th>Date added</th>
-            <th>Date updated</th>
+            <th>Date started</th>
+            <th>Date completed</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {notes.map(note => (
-            <tr key={note.id}>
-              <td>{note.title}</td>
-              <td>{note.description}</td>
-              <td>{note.dateAdded}</td>
-              <td>{note.dateUpdated}</td>
-              <td key={note.id}>
+          {trips.map(trip => (
+            <tr key={trip.id}>
+              <td>{trip.name}</td>
+              <td>{trip.description}</td>
+              <td>{new Date(trip.dateStarted).toLocaleDateString()}</td>
+              <td>{trip.dateCompleted ? new Date(trip.dateCompleted).toLocaleDateString() : '-'}</td>
+              <td key={trip.id}>
                 <div className="form-group">
                   <input
                     type="button"
                     value="Update"
                     className="btn btn-success"
-                    onClick={() => this.onNoteUpdate(note.id)}
+                    onClick={() => this.onTripUpdate(trip.id)}
                   />
                   <input
                     type="button"
                     value="Delete"
                     className="btn btn-danger"
-                    onClick={() => this.onNoteDelete(note.id)}
+                    onClick={() => this.onTripDelete(trip.id)}
                   />
                 </div>
               </td>
@@ -79,21 +79,21 @@ export class Notes extends Component {
         <em>Loading...</em>
       </p>
     ) : (
-      this.renderAllNotesTable(this.state.notes)
+      this.renderAllTripsTable(this.state.trips)
     );
 
     return (
       <div>
-        <h1>All notes</h1>
-        <p>Here you will see a list of all notes.</p>
+        <h1>All trips</h1>
+        <p>Here you will see a list of all trips.</p>
         {contents}
       </div>
     );
   }
 
-  async populateNotesData() {
-    const response = await fetch("api/Notes/GetNotes");
+  async populateTripsData() {
+    const response = await fetch("api/Trips/GetTrips");
     const data = await response.json();
-    this.setState({ notes: data, loading: false });
+    this.setState({ trips: data, loading: false });
   }
 }

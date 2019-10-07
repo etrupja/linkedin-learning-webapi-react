@@ -28,7 +28,7 @@ namespace app
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<ITripService, TripService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

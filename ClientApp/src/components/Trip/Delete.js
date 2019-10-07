@@ -27,7 +27,7 @@ export class Delete extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
 
-    fetch(`api/Notes/SingleNote/${id}`)
+    fetch(`api/Trips/SingleTrip/${id}`)
       .then(data => {
         console.log("Data - ", data);
       })
@@ -41,7 +41,7 @@ export class Delete extends Component {
 
   //   const { history } = this.props;
 
-  //   let note = {
+  //   let trip = {
   //     Id: Math.floor(Math.random() * 250),
   //     title: this.state.title,
   //     description: this.state.description,
@@ -49,17 +49,17 @@ export class Delete extends Component {
   //     dateUpdated: null
   //   };
 
-  //   fetch("api/Notes/AddNote", {
+  //   fetch("api/Trips/AddTrip", {
   //     method: "POST",
   //     headers: {
   //       Accept: "application/json",
   //       "Content-Type": "application/json"
   //     },
-  //     body: JSON.stringify(note)
+  //     body: JSON.stringify(trip)
   //   })
   //     .then(function(resp) {
   //       console.log("Success");
-  //       history.push("/notes");
+  //       history.push("/trips");
   //     })
   //     .catch(function(error) {
   //       console.log("Something went wrong! ", error);
@@ -69,7 +69,7 @@ export class Delete extends Component {
   render() {
     return (
       <div style={{ marginTop: 10 }}>
-        <h3>Delete note confirmation</h3>
+        <h3>Delete trip confirmation</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Title: </label>
@@ -90,7 +90,7 @@ export class Delete extends Component {
             />
           </div>
           <div className="form-group">
-            <input type="submit" value="Add note" className="btn btn-primary" />
+            <input type="submit" value="Add trip" className="btn btn-primary" />
           </div>
         </form>
       </div>

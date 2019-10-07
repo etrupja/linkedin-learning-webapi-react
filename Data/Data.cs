@@ -3,73 +3,73 @@ using System.Collections.Generic;
 
 public static class Data
 {
-    public static List<Note> Notes => allNotes;
-    static List<Note> allNotes = new List<Note>()
+    public static List<Trip> Trips => allTrips;
+    static List<Trip> allTrips = new List<Trip>()
     {
-        new Note()
+        new Trip()
         {
             Id=1,
-            Title="Note 1 title",
-            Description="Note 1 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 1",
+            Description="Visit 1 description...",
+            DateStarted = new DateTime(2017,01,20),
+            DateCompleted = null
         },
-        new Note()
+        new Trip()
         {
             Id=2,
-            Title="Note 2 title",
-            Description="Note 2 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 2",
+            Description="Visit 2 description...",
+            DateStarted = new DateTime(2019,02,22),
+            DateCompleted = new DateTime(2019,01,30)
         },
-        new Note()
+        new Trip()
         {
             Id=3,
-            Title="Note 3 title",
-            Description="Note 3 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 3",
+            Description="Visit 3 description...",
+            DateStarted = new DateTime(2019,01,27),
+            DateCompleted = new DateTime(2019,01,30)
         },
-        new Note()
+        new Trip()
         {
             Id=4,
-            Title="Note 4 title",
-            Description="Note 4 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 4",
+            Description="Visit 4 description...",
+            DateStarted = new DateTime(2019,01,20),
+            DateCompleted = null
         },
-        new Note()
+        new Trip()
         {
             Id=5,
-            Title="Note 5 title",
-            Description="Note 5 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 5",
+            Description="Visit 6 description...",
+            DateStarted = new DateTime(2015,01,20),
+            DateCompleted = new DateTime(2015,01,30)
         },
-        new Note()
-        {
-            Id=6,
-            Title="Note 6 title",
-            Description="Note 6 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
-        },
-        new Note()
+        new Trip()
         {
             Id=7,
-            Title="Note 7 title",
-            Description="Note 7 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 7",
+            Description="Visit 7 description...",
+            DateStarted = new DateTime(2019,01,20),
+            DateCompleted = null
         },
-        new Note()
+        new Trip()
         {
             Id=8,
-            Title="Note 8 title",
-            Description="Note 9 description",
-            DateAdded = new DateTime(2019,01,20),
-            DateUpdated = null
+            Name="Visit 8",
+            Description="Visit 8 description...",
+            DateStarted = new DateTime(2019,01,20),
+            DateCompleted = null
         },
+        new Trip()
+        {
+            Id=9,
+            Name="Visit 9",
+            Description="Visit 9 description...",
+            DateStarted = new DateTime(2019,01,20),
+            DateCompleted = null
+        }
     };
 
 }
