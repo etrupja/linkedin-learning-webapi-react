@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export class Trips extends Component {
   static displayName = Trips.name;
@@ -19,14 +20,11 @@ export class Trips extends Component {
   }
 
   onTripUpdate(id) {
-    console.log("Update: ", id);
     const { history } = this.props;
     history.push("/update/" + id);
   }
 
   onTripDelete(id) {
-    console.log("Delete: ", id);
-
     const { history } = this.props;
     history.push("/delete/" + id);
   }
@@ -49,7 +47,11 @@ export class Trips extends Component {
               <td>{trip.name}</td>
               <td>{trip.description}</td>
               <td>{new Date(trip.dateStarted).toLocaleDateString()}</td>
-              <td>{trip.dateCompleted ? new Date(trip.dateCompleted).toLocaleDateString() : '-'}</td>
+              <td>
+                {trip.dateCompleted
+                  ? new Date(trip.dateCompleted).toLocaleDateString()
+                  : "-"}
+              </td>
               <td key={trip.id}>
                 <div className="form-group">
                   <input
@@ -91,9 +93,10 @@ export class Trips extends Component {
     );
   }
 
-  async populateTripsData() {
-    const response = await fetch("api/Trips/GetTrips");
-    const data = await response.json();
-    this.setState({ trips: data, loading: false });
+  populateTripsData() {
+    axios.get("api/Trips/GetTrips").then(res => {
+      const response = res.data;
+      this.setState({ trips: response, loading: false });
+    });
   }
 }

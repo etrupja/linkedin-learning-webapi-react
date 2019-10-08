@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
 import { Link, withRouter } from "react-router-dom";
+import axios from "axios";
 
 export class Delete extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export class Delete extends Component {
     this.onConfirmation = this.onConfirmation.bind(this);
 
     this.state = {
-      title: "",
+      name: "",
       description: "",
       dateAdded: "",
       dateUpdated: ""
@@ -17,82 +18,58 @@ export class Delete extends Component {
   }
 
   onCancel(e) {
-    console.log("Cancel Delete");
+    const { history } = this.props;
+    history.push("/trips");
   }
 
   onConfirmation(e) {
-    console.log("Confirmation");
+    const { id } = this.props.match.params;
+    const { history } = this.props;
+
+    axios
+      .delete("api/Trips/DeleteTrip/" + id)
+      .then(result => {
+        console.log("Trip deleted!");
+        history.push("/trips");
+      })
+      .catch(error => {
+        console.log("Trip could not be deleted!");
+      });
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
 
-    fetch(`api/Trips/SingleTrip/${id}`)
-      .then(data => {
-        console.log("Data - ", data);
-      })
-      .catch(error => {
-        console.log("Something went wrong! Error: ", error);
+    axios.get(`api/Trips/SingleTrip/${id}`).then(trip => {
+      const response = trip.data;
+      console.log("Single Trip - ", response);
+      this.setState({
+        name: response.name,
+        description: response.description,
+        dateAdded: response.dateAdded,
+        dateUpdated: response.dateUpdated,
+        loading: false
       });
+    });
   }
-
-  // onSubmit(e) {
-  //   e.preventDefault();
-
-  //   const { history } = this.props;
-
-  //   let trip = {
-  //     Id: Math.floor(Math.random() * 250),
-  //     title: this.state.title,
-  //     description: this.state.description,
-  //     dateAdded: this.state.dateAdded,
-  //     dateUpdated: null
-  //   };
-
-  //   fetch("api/Trips/AddTrip", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(trip)
-  //   })
-  //     .then(function(resp) {
-  //       console.log("Success");
-  //       history.push("/trips");
-  //     })
-  //     .catch(function(error) {
-  //       console.log("Something went wrong! ", error);
-  //     });
-  // }
 
   render() {
     return (
       <div style={{ marginTop: 10 }}>
-        <h3>Delete trip confirmation</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Title: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.title}
-              onChange={this.onChangeTitle}
-            />
+        <h2>Delete trip confirmation</h2>
+
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">{this.state.name}</h4>
+            <p class="card-text">{this.state.description}</p>
+            <button onClick={this.onCancel} class="btn btn-default">
+              Cancel
+            </button>
+            <button onClick={this.onConfirmation} class="btn btn-danger">
+              Confirm
+            </button>
           </div>
-          <div className="form-group">
-            <label>Description: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-          </div>
-          <div className="form-group">
-            <input type="submit" value="Add trip" className="btn btn-primary" />
-          </div>
-        </form>
+        </div>
       </div>
     );
   }
