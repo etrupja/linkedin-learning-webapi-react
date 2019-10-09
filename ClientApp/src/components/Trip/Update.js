@@ -30,9 +30,9 @@ export class Update extends Component {
         name: response.name,
         description: response.description,
         dateStarted: new Date(response.dateStarted).toISOString().slice(0, 10),
-        dateCompleted: new Date(response.dateCompleted)
+        dateCompleted:response.dateCompleted ?  new Date(response.dateCompleted)
           .toISOString()
-          .slice(0, 10)
+          .slice(0, 10) : null
       });
     });
   }
