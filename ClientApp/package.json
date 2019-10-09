@@ -10,10 +10,15 @@
     "oidc-client": "^1.8.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-redux": "^7.1.1",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^2.1.8",
     "reactstrap": "^6.3.0",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "rimraf": "^2.6.2"
   },
   "devDependencies": {

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { getAllTrips } from "../../actions/tripActions";
 
 export class Trips extends Component {
   static displayName = Trips.name;
@@ -16,7 +18,14 @@ export class Trips extends Component {
   }
 
   componentDidMount() {
-    this.populateTripsData();
+    // this.populateTripsData();
+    this.props.getAllTrips();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.trips.data !== this.props.trips.data) {
+      this.setState({ trips: this.props.trips.data });
+    }
   }
 
   onTripUpdate(id) {
@@ -42,6 +51,7 @@ export class Trips extends Component {
           </tr>
         </thead>
         <tbody>
+          {/* {trips.map(trip => ( */}
           {trips.map(trip => (
             <tr key={trip.id}>
               <td>{trip.name}</td>
@@ -76,12 +86,22 @@ export class Trips extends Component {
   }
 
   render() {
-    let contents = this.state.loading ? (
+    // let contents = this.props.loading ? (
+    //   <p>
+    //     <em>Loading...</em>
+    //   </p>
+    // ) : (
+    //   this.renderAllTripsTable(this.state.trips)
+    // );
+
+    let contents = this.props.trips.loading ? (
       <p>
         <em>Loading...</em>
       </p>
     ) : (
-      this.renderAllTripsTable(this.state.trips)
+      this.state.trips.length && this.renderAllTripsTable(this.state.trips)
+
+      // this.renderAllTripsTable(this.state.trips)
     );
 
     return (
@@ -92,11 +112,20 @@ export class Trips extends Component {
       </div>
     );
   }
-
-  populateTripsData() {
-    axios.get("api/Trips/GetTrips").then(res => {
-      const response = res.data;
-      this.setState({ trips: response, loading: false });
-    });
-  }
+  // populateTripsData() {
+  //   axios.get("api/Trips/GetTrips").then(res => {
+  //     const response = res.data;
+  //     this.setState({ trips: response, loading: false });
+  //   });
+  // }
 }
+
+//allows to access data from store. Connects store as argument and use props. to get app state and get new value
+const mapStateToProps = ({ trips }) => ({
+  trips
+});
+
+export default connect(
+  mapStateToProps,
+  { getAllTrips }
+)(Trips);
